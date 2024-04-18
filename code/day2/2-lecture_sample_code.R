@@ -5,6 +5,7 @@ if(!require(pacman)){
   library(pacman)
 }
 
+################################################################################
 # use pacman::p_load to load packages in one line
 ## what you are doing here is to install additional functions that do not come with R software itself
 ## If you are STATA users, it's similar to "ssc install."
@@ -46,3 +47,55 @@ pop_10_rpj <- project(pop_10, crs(admin1_sf_rpj_v2)) #projected to EPSG code mor
 plot(pop_10_rpj)
 plot(st_geometry(admin1_sf_rpj), add=TRUE)
 plot(st_geometry(admin1_sf_rpj_v2), border="blue", add=TRUE)
+
+################################################################################
+#Zonal statistics
+#First confirm that polygon shapefile and raster data have the same CRS
+identical( st_crs(admin1_sf)$epsg, st_crs(pop)$epsg)
+##You don't need to get upset when these two have different CRS
+##you can always reproject
+identical( st_crs(admin1_sf_rpj)$epsg, st_crs(pop)$epsg)
+admin1_sf_rpj <- st_transform(admin1_sf_rpj, st_crs(pop)$epsg)
+identical( st_crs(admin1_sf_rpj)$epsg, st_crs(pop)$epsg)
+##Good it worked out!
+
+#compute zonal statistics
+admin1_sf_pop <-admin1_sf %>% 
+  mutate(pop=exact_extract(pop, .,"sum"))
+
+#let's see what we have gotten
+map <- tm_shape(admin1_sf_pop) + 
+  tm_borders(lwd = 0.5) + 
+  tm_shape(pop) %>%
+  tm_raster(pop) +
+  tm_layout(
+    legend.outside = TRUE,
+    legend.position = c("right", "top"),
+    legend.title.size
+    = 1.2,
+    legend.text.size = 0.8
+  )
+
+
+################################################################################
+#How to correct geometry issues
+admin1_sf <- st_read("data-raw/tza_admbnda_adm1_20181019/tza_admbnda_adm1_20181019.shp")
+
+#let's check if the shapefile is valid
+admin1_sf <- admin1_sf %>%
+  mutate(valid = st_is_valid(.))
+
+table(admin1_sf$valid)
+
+#ok there are four polygons that have gotten some issues
+admin1_sf_invalid <- admin1_sf %>%
+  filter(valid=="FALSE")
+st_is_valid(admin1_sf_invalid, reason=TRUE)
+plot(st_geometry(admin1_sf_invalid))
+
+#let's make it valid
+admin1_sf_valid <- admin1_sf_invalid %>%
+  st_make_valid()
+st_is_valid(admin1_sf_valid)
+plot(st_geometry(admin1_sf_valid))
+
