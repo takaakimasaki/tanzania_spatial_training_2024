@@ -17,23 +17,15 @@ The main objectives of this training program are:
 | Day     | Topic                                                | Links                                                          |
 |---------|------------------------------------------------------|----------------------------------------------------------------|
 | Day 1   | Introduction to Big Data, GIS, and R programming     | [Slides](day1/slides.pdf), [Code](day1/code.R), [Data](day1/data.csv) |
-| Day 2   | Advanced topics in GIS                               | [Slides](day2/slides.pdf), [Code](day2/code.R), [Data](day2/data.csv) |
-| Day 3   | Introduction to Geospatial Data on Environment and Agriculture | [Slides](day3/slides.pdf), [Code](day3/code.R), [Data](day3/data.csv) |
-| Day 4   | Integrating Survey Data with Geospatial Data         | [Slides](day4/slides.pdf), [Code](day4/code.R), [Data](day4/data.csv) |
-| Day 5   | Group Study Proposal                                 | [Template](day5/group_study_proposal_template.docx) |
-| Day 6   | Introduction to GitHub and Google Earth Engine (GEE) | [GitHub Guide](day6/github_guide.md), [GEE Tutorial](day6/gee_tutorial.pdf) |
-| Day 7   | Group Presentation                                   | [Guidelines](day7/presentation_guidelines.pdf) |
+| Day 2   | Advanced topics in GIS                               |  |
+| Day 3   | Introduction to Geospatial Data on Environment and Agriculture |  |
+| Day 4   | Integrating Survey Data with Geospatial Data         | |
+| Day 5   | Group Study Proposal                                 | |
+| Day 6   | Introduction to GitHub and Google Earth Engine (GEE) | |
+| Day 7   | Group Presentation                                   | |
 
-## Getting Started
-To get started with the training program, please refer to the materials provided in each day's folder. Each folder contains slides, exercises, and additional resources relevant to the day's topic.
-
-## Requirements
-- Participants should have basic knowledge of programming concepts.
-- Access to a computer with internet connectivity is required.
-- Installation of R and relevant GIS software (if applicable) is recommended.
+## Installation requirements
+This training program requires [R](https://cran.r-project.org/bin/windows/base/), [R Studio](https://posit.co/download/rstudio-desktop/), and [Anaconda](https://www.anaconda.com/download/success).
 
 ## Contributors
-This training program was developed by [Your Name] and [Any Collaborators]. Contributions, issues, and feedback are welcome.
-
-## License
-This project is licensed under the [License Name] License - see the [LICENSE](LICENSE) file for details.
+This training program was developed by Takaaki Masaki and Revocatus Paul. Contributions, issues, and feedback are welcome.
