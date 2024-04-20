@@ -16,8 +16,8 @@ The main objectives of this training program are:
 
 | Day     | Topic                                                | Links                                                          |
 |---------|------------------------------------------------------|----------------------------------------------------------------|
-| Day 1   | Introduction to Big Data, GIS, and R programming     | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_1.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day1/1-handson.R) |
-| Day 2   | Advanced topics in GIS                               |  [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_2.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day2/2-handson.R) |
+| Day 1   | Introduction to Big Data, GIS, and R programming     | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_1.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day1) |
+| Day 2   | Advanced topics in GIS                               |  [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_2.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day2) |
 | Day 3   | Introduction to Geospatial Data on Environment and Agriculture |  |
 | Day 4   | Integrating Survey Data with Geospatial Data         | |
 | Day 5   | Group Study Proposal                                 | |
