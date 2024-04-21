@@ -18,7 +18,7 @@ The main objectives of this training program are:
 |---------|------------------------------------------------------|----------------------------------------------------------------|
 | Day 1   | Introduction to Big Data, GIS, and R programming     | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_1.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day1) |
 | Day 2   | Advanced topics in GIS                               |  [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_2.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day2) |
-| Day 3   | Introduction to Geospatial Data on Environment and Agriculture |  |
+| Day 3   | Introduction to Geospatial Data on Environment and Agriculture |  [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_3.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day3) |
 | Day 4   | Integrating Survey Data with Geospatial Data         | |
 | Day 5   | Group Study Proposal                                 | |
 | Day 6   | Introduction to GitHub and Google Earth Engine (GEE) | |
