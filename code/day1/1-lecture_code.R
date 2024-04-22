@@ -32,6 +32,7 @@ pop<-terra::rast("data-raw/tza_ppp_2020_UNadj_constrained.tif")
 pop_10 <-terra::aggregate(pop, fact=10, fun="sum", na.rm=TRUE)
 plot(pop_10)
 
+## you need to download data from https://drive.google.com/drive/folders/1MLANkoF-Es4kc3I5dEnr76jKv3kYmV8D!
 precip <- terra::rast("data-raw/precip/cru_ts4.07.1901.2022.pre.dat.nc/cru_ts4.07.1901.2022.pre.dat.nc") 
 precip_tza <- precip$pre_1 %>%
   crop(., admin1_sf) %>%
