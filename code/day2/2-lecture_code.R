@@ -199,7 +199,7 @@ plot(st_geometry(dar), add=TRUE)
 
 ##mask()
 pop_dar <- mask(pop_dar, dar)
-plot(pop_dar, add=TRUE)
+plot(pop_dar)
 plot(st_geometry(dar), add=TRUE)
 
 ##app
@@ -217,6 +217,8 @@ rural_dar <- rural %>%
   terra::crop(., dar) %>%
   terra::mask(., dar)
 
+plot(rural_dar)
+
 pop_dar <- pop %>%
   terra::crop(., dar) %>%
   terra::mask(., dar)
@@ -232,6 +234,9 @@ rural_pop_dar <- rural_dar * pop_dar
 
 rural_dar_rsmp = terra::resample(rural_dar, pop_dar)
 rural_dar_rsmp
+
+pop_dar_100 <- terra::aggregate(pop_dar, fact = 100, fun="sum", na.rm=TRUE)
+rural_dar_rsmp_100 = terra::resample(rural_dar, pop_dar_100)
 
 plot(rural_dar_rsmp)
 plot(st_geometry(dar), add=TRUE)

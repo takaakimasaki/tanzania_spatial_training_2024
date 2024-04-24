@@ -1,4 +1,5 @@
 # install packages --------------------------------------------------------
+rm(list = ls())
 pacman::p_load(here,sf,terra,tidyverse,dplyr,tmap,exactextractr,paletteer, rhdf5, imager)
 
 admin1_sf <- st_read("data-raw/tza_admbnda_adm1_20181019/tza_admbnda_adm1_20181019.shp") %>%
@@ -48,10 +49,10 @@ tmp_2022_12 <- tmp$tmp_1464 %>%
 
 plot(tmp_2022_12)
 plot(st_geometry(admin1_sf), add=TRUE)
-tmp_stack <- c(tmp)
+#tmp_stack <- c(tmp)
 
 tmp_adm1 <- admin1_sf %>% 
-  exact_extract(tmp_stack, ., append_cols = 'ADM1_EN', 'mean', force_df = TRUE) %>%
+  exact_extract(tmp, ., append_cols = 'ADM1_EN', 'mean', force_df = TRUE) %>%
   as_tibble() 
 
 ##1. assign year and month to variable names  
@@ -77,6 +78,9 @@ final_col_names <- c("ADM1_EN", new_cols)
 colnames(only_tmp_adm1) <- final_col_names
 tmp_sf <- left_join(admin1_sf, only_tmp_adm1, by = "ADM1_EN")
 View(tmp_sf)
+
+tm_shape(tmp_sf) +
+  tm_fill("1903-02")
 
 ################################################################################
 #Optional: how to combine HDF datasets

@@ -22,7 +22,7 @@ lcc_tza <- crop(lcc, e)
 lcc_tza <- mask(lcc_tza, admin1_sf)
 #extract cropland
 unique_values <- unique(values(lcc_tza))
-
+plot(lcc_tza)
 ##value==10: Rainfed cropland
 ##value==11: Rainfed cropland
 ##value==12: Rainfed cropland
@@ -34,6 +34,17 @@ lcc_tza_cropland <- lcc_tza %>%
   terra::app(function(x) ifelse(x %in% keep_values, 1, 0))
 
 plot(lcc_tza_cropland)
+
+lcc_tza_tree <- lcc_tza %>%
+  terra::app(function(x) ifelse(x >=50 & x<110, 1, 0))
+
+plot(lcc_tza_tree)
+
+lcc_tza_urban <- lcc_tza %>%
+  terra::app(function(x) ifelse(x == 190, 1, 0))
+plot(lcc_tza_urban)
+
+terra::writeRaster(lcc_tza_urban, "figures/lcc_tza_urban.tif")
 
 #check how this compare to other cropland map (https://www.fao.org/giews/countrybrief/country.jsp?code=TZA&lang=fr)
 

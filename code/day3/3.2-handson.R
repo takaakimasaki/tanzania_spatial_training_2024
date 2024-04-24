@@ -13,12 +13,17 @@ precip <- terra::rast("data-raw/precip/cru_ts4.07.1901.2022.pre.dat.nc/cru_ts4.0
 precip
 names(precip)
 
-precip_stack <- c(precip)
+#precip_stack <- c(precip)
 
 precip_adm1 <- admin1_sf %>% 
-  exact_extract(precip_stack, ., append_cols = 'ADM1_EN', 'mean', force_df = TRUE) %>%
+  exact_extract(precip, ., append_cols = 'ADM1_EN', 'mean', force_df = TRUE) %>%
   as_tibble() 
 
+precip_1901_jan_feb <- c(precip$pre_1, precip$pre_2)
+
+precip_adm1_1901_jan_feb <- admin1_sf %>% 
+  exact_extract(precip_1901_jan_feb, ., append_cols = 'ADM1_EN', 'mean', force_df = TRUE) %>%
+  as_tibble() 
 ##1. assign year and month to variable names of precip_adm1? 
 
 # retain only columns with mean precipitation
@@ -47,8 +52,8 @@ colnames(only_precip_adm1) <- final_col_names
 # merge precipitation dataframe with Tanzania regional level shapefile 
 
 precip_sf <- left_join(admin1_sf, only_precip_adm1, by = "ADM1_EN")
-precip_sf <- precip_sf %>%
-  st_as_sf()
+#precip_sf <- precip_sf %>%
+#  st_as_sf()
 
 # generate map
 
@@ -56,7 +61,7 @@ map <- tm_shape(precip_sf) +
   tm_fill(
     col = "2022-12", 
           style = "quantile",
-          title = "Precipitation Dec 2022",
+          title = "Precipitation Nov 2022",
           palette = "GnBu",
           legend.reverse = TRUE,) +
   tm_borders() +
@@ -152,6 +157,28 @@ trend_zone <- ggplot(data=precip_long_zone[which(precip_long$month >= "2010-01-0
 ggsave(trend_reg, filename = here::here("figures", "precipitation_trend.png"), height = 20, width = 49, dpi = 300)
 ggsave(trend_zone, filename = here::here("figures", "precipitation_trend_zone.png"), height = 20, width = 49, dpi = 300)
 
+precip_long_morogoro <- precip_long %>%
+  filter(ADM1_EN == "Morogoro")
 
+trend_reg_morogoro <- ggplot(data=precip_long_morogoro[which(precip_long_morogoro$month >= "2010-01-01"),], aes(x = month, y = precip, fill = ADM1_EN)) +
+  geom_area() +
+  labs(title = "Monthly Mean Precipitation in Morogoro",
+       y = "Precipitation") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y-%m") +
+  theme(legend.title = element_blank(), 
+        legend.text = element_text(size = 30),
+        plot.title = element_text(size = 40, face = "bold", hjust = 0.5),  
+        legend.key.size = unit(1.5, 'cm'),
+        axis.text.x = element_text(size = 30),
+        axis.title = element_blank(),
+        axis.text.y = element_blank())
 
+trend_reg_morogoro
+ggsave(trend_reg_morogoro, filename = here::here("figures", "precipitation_trend_morogoro.png"), height = 20, width = 49, dpi = 300)
 
+#keep tmap as an object
+map <- tm_shape(admin1_sf) + tm_borders()
+map
+
+#just show the map 
+tm_shape(admin1_sf) + tm_borders()
