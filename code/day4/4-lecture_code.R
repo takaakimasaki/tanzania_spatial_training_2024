@@ -59,10 +59,10 @@ print_labels(mysurvey$variables$hv024)
 
 #cross tabulation
 electricity_by_region <- svyby(~electricity, 
-      by=~hv024,
-      design = mysurvey,
-      FUN=svymean,
-      vartype=c("se","ci"))
+                               by=~hv024,
+                               design = mysurvey,
+                               FUN=svymean,
+                               vartype=c("se","ci"))
 
 piped_water_by_region <- svyby(~piped_water, 
                                by=~hv024,
@@ -77,21 +77,25 @@ region_label <- HR_dta %>%
   group_by(ADM1_EN) %>%
   summarise(hv024 = mean(hv024))
 
-
 electricity_by_region_dta <- electricity_by_region %>%
   as.data.frame() %>%
   left_join(., region_label) %>%
   select(ADM1_EN, electricity)
+
+electricity_by_region_dta <- electricity_by_region_dta %>%
+  mutate(ADM1_EN =ifelse(ADM1_EN=="Dar Es Salaam","Dar-es-salaam",ADM1_EN))
 
 piped_water_by_region_dta <- piped_water_by_region %>%
   as.data.frame() %>%
   left_join(., region_label) %>%
   select(ADM1_EN, piped_water)
 
+piped_water_by_region_dta <- piped_water_by_region_dta %>%
+  mutate(ADM1_EN =ifelse(ADM1_EN=="Dar Es Salaam","Dar-es-salaam",ADM1_EN))
 admin1_sf <- admin1_sf %>%
   left_join(., electricity_by_region_dta) %>%
   left_join(., piped_water_by_region_dta) 
-  
+
 
 #NOTICE! Dar es Salaam has not been matched. How can we address this issue?
 
