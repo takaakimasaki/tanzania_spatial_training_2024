@@ -35,7 +35,6 @@ HR_dta <- HR_dta %>%
 
 ##now let's use survey package called
 ##set survey design
-pacman::p_load(survey)
 mysurvey <- svydesign(id=HR_dta$hv021, ##PSU
                       data=HR_dta,
                       strata=HR_dta$hv022, ##Strata
@@ -65,6 +64,11 @@ electricity_by_region <- svyby(~electricity,
       FUN=svymean,
       vartype=c("se","ci"))
 
+piped_water_by_region <- svyby(~piped_water, 
+                               by=~hv024,
+                               design = mysurvey,
+                               FUN=svymean,
+                               vartype=c("se","ci"))
 ################################################################################
 #Now map the results
 #first generate a new string variable that contains regional names
@@ -73,15 +77,21 @@ region_label <- HR_dta %>%
   group_by(ADM1_EN) %>%
   summarise(hv024 = mean(hv024))
 
+
 electricity_by_region_dta <- electricity_by_region %>%
   as.data.frame() %>%
-  left_join(., region_label) 
+  left_join(., region_label) %>%
+  select(ADM1_EN, electricity)
 
-electricity_by_region_dta %>%
-  select()
+piped_water_by_region_dta <- piped_water_by_region %>%
+  as.data.frame() %>%
+  left_join(., region_label) %>%
+  select(ADM1_EN, piped_water)
 
 admin1_sf <- admin1_sf %>%
-  left_join(., electricity_by_region_dta)
+  left_join(., electricity_by_region_dta) %>%
+  left_join(., piped_water_by_region_dta) 
+  
 
 #NOTICE! Dar es Salaam has not been matched. How can we address this issue?
 
@@ -94,6 +104,21 @@ tm_shape(admin1_sf) +
             legend.position= c("left", "bottom"),
             legend.title.size
             =2, legend.text.size=1) 
+
+#let's conduct a simple regression looking at the relationship between access to piped water and electricity
+scatter_plot <- ggplot(data = admin1_sf, aes(x = piped_water, y = electricity)) +
+  geom_point() +  # Add points for the scatter plot
+  geom_smooth(method = "lm", se = TRUE) +  # Add regression line with confidence interval
+  labs(x = "Access to piped water", y = "Access to electricity", title = "Scatter Plot with Regression Line")
+scatter_plot
+
+##add region labels
+scatter_plot <- ggplot(data = admin1_sf, aes(x = piped_water, y = electricity)) +
+  geom_point() +  # Add points for the scatter plot
+  geom_smooth(method = "lm", se = TRUE) +  # Add regression line with confidence interval
+  geom_text(aes(label = ADM1_EN), vjust = -0.5, size = 2) +  # Add labels to points
+  labs(x = "Access to piped water", y = "Access to electricity", title = "Scatter Plot with Regression Line")
+scatter_plot
 
 #how do we map data at the EA level
 ea_sf <- st_read("data-raw/microdata/TZ_2022_DHS_04222024_160_47858/TZGE81FL/TZGE81FL.shp")
@@ -151,7 +176,8 @@ hh_sf <- HR_dta %>%
                 hv024, #Region
                 wt, 
                 piped_water,
-                electricity) %>%
+                electricity,
+                wealth=hv270) %>%
   rename(DHSCLUST = hv021) %>%
   left_join(ea_sf, .)
 
@@ -189,4 +215,19 @@ hh_sf_1km <- hh_sf %>%
 ##let's compute the mean of raster data in the 1km buffer of each EA
 hh_sf_1km <- hh_sf_1km %>%
   mutate(pop_1km =  exact_extract(pop, .,"mean"))
-  
+
+##run regression between relative wealth and population density
+hh_sf_1km_df <- hh_sf_1km %>%
+  st_drop_geometry(.)
+
+##set survey design
+mysurvey <- svydesign(id=hh_sf_1km_df$DHSCLUST, ##PSU
+                      data=hh_sf_1km_df,
+                      strata=hh_sf_1km_df$hv022, ##Strata
+                      weight=hh_sf_1km_df$wt,
+                      nest=T)
+attach(hh_sf_1km_df)
+
+##run a simple regression accounting for sampling weights
+##look at relationship between population density and relative wealth by running a simple OLS
+ols_model <- svyglm(wealth ~ pop_1km, design = mysurvey)
