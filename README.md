@@ -20,7 +20,7 @@ The main objectives of this training program are:
 | Day 2   | Advanced topics in GIS                               |  [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_2.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day2) |
 | Day 3   | Introduction to Geospatial Data on Environment and Agriculture |  [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_3.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day3) |
 | Day 4   | Integrating Survey Data with Geospatial Data         | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_4.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day4) |
-| Day 5   | Group Study Proposal                                 | |
+| Day 5   | Group Study Proposal                                 | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_5.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day5) |
 | Day 6   | Introduction to GitHub and Google Earth Engine (GEE) | |
 | Day 7   | Group Presentation                                   | | 
 
