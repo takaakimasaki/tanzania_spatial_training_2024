@@ -188,7 +188,6 @@ map <- tm_shape(admin1_sf) +
     = 1.2,
     legend.text.size = 0.8
   )
-
 tmap_save(tm = map,
           filename = here::here("figures","drought_share.png"), 
           dpi=600)
