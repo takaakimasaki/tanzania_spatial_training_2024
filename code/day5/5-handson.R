@@ -5,7 +5,7 @@ admin1_sf <- st_read("data-raw/tza_admbnda_adm1_20181019/tza_admbnda_adm1_201810
 # how to download deforestation data from https://hub.arcgis.com/documents/gfw::tree-cover-loss/explore
 # but first check the metadata: https://hub.arcgis.com/documents/gfw::tree-cover-loss/explore
 #loss_year_00N_020E <- terra::rast("data-raw/deforestation/Hansen_GFC-2022-v1.10_lossyear_00N_020E.tif")
-loss_year_00N_030E <- terra::rast("data-raw/deforestation/Hansen_GFC-2023-v1.11_lossyear_00N_030E.tif")
+loss_year_00N_030E <- terra::rast("data-raw/deforestation/Hansen_GFC-2022-v1.10_lossyear_00N_030E.tif")
 #loss_year_00N_040E <- terra::rast("data-raw/deforestation/Hansen_GFC-2022-v1.10_lossyear_00N_040E.tif")
 #loss_year_10S_030E <- terra::rast("data-raw/deforestation/Hansen_GFC-2022-v1.10_lossyear_10S_030E.tif")
 #loss_year_10S_040E <- terra::rast("data-raw/deforestation/Hansen_GFC-2022-v1.10_lossyear_10S_040E.tif")
@@ -17,8 +17,9 @@ loss_year_00N_030E <- terra::rast("data-raw/deforestation/Hansen_GFC-2023-v1.11_
 #                          loss_year_10S_030E,
 #                          loss_year_10S_040E)
 
-plot(st_geometry(admin1_sf))
-plot(loss_year, add=TRUE)
+plot(loss_year_all)
+plot(st_geometry(admin1_sf), add=TRUE)
+
 
 #now you can compute the total areas of tree loss by region
 ##let's do this first in Morogoro
@@ -61,6 +62,10 @@ loss_area_morogoro_output <- loss_area_morogoro_output %>%
 loss_area_morogoro_output %>%
   st_drop_geometry() %>%
   write_csv("output/morogoro_tree_loss.csv")
+
+loss_area_morogoro_output %>%
+  st_drop_geometry() %>%
+  haven::write_dta("output/morogoro_tree_loss.dta")
 
 
 
