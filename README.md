@@ -22,7 +22,7 @@ The main objectives of this training program are:
 | Day 4   | Integrating Survey Data with Geospatial Data         | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_4.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day4) |
 | Day 5   | Group Study Proposal                                 | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_5.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day5) |
 | Day 6   | Introduction to GitHub and Google Earth Engine (GEE)  | [Slides](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/slides/Day_6.pptx), [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day6) |
-| Day 7   | Group Presentation                                   | | 
+| Day 7   | Group Presentation                                   | [Code](https://github.com/takaakimasaki/tanzania_spatial_training_2024/blob/main/code/day7) |
 
 ## Installation requirements
 This training program requires [R](https://cran.r-project.org/bin/windows/base/), [R Studio](https://posit.co/download/rstudio-desktop/), and [Anaconda](https://www.anaconda.com/download/success).

@@ -17,8 +17,8 @@ loss_year_00N_030E <- terra::rast("data-raw/deforestation/Hansen_GFC-2022-v1.10_
 #                          loss_year_10S_030E,
 #                          loss_year_10S_040E)
 
-plot(loss_year_all)
-plot(st_geometry(admin1_sf), add=TRUE)
+#plot(loss_year_all)
+#plot(st_geometry(admin1_sf), add=TRUE)
 
 
 #now you can compute the total areas of tree loss by region
@@ -31,7 +31,7 @@ loss_year_00N_030E_morogoro <- loss_year_00N_030E %>%
   crop(., morogoro) %>%
   mask(., morogoro)
 
-plot(st_geometry(morogoro), add=TRUE)
+plot(st_geometry(morogoro))
 plot(loss_year_00N_030E_morogoro)
 ##to do this let's change 1 if tree is lost, 0 otherwise in the treeloss layer
 loss_year_00N_030E_morogoro_1 <- loss_year_00N_030E_morogoro %>%
@@ -47,7 +47,8 @@ loss_area_morogoro <- loss_year_00N_030E_morogoro_1*a
 
 ###compute the sum of area 
 loss_area_morogoro_output <- morogoro %>%
-  mutate(tree_loss_km2 = exact_extract(loss_area_morogoro,., "sum"))
+  mutate(tree_loss_km2 = exact_extract(loss_area_morogoro,., "sum"),
+         tree_loss_bin = exact_extract(loss_year_00N_030E_morogoro_1,., "sum"))
 
 ###now let's compute weighted average taking into account differences in cell size
 loss_year_00N_030E_morogoro_10 <- loss_year_00N_030E_morogoro_1 %>%
@@ -66,9 +67,6 @@ loss_area_morogoro_output %>%
 loss_area_morogoro_output %>%
   st_drop_geometry() %>%
   haven::write_dta("output/morogoro_tree_loss.dta")
-
-
-
 
 
 ##ok if we have time, can we use the landcover dataset to compute the total area of builtup?
